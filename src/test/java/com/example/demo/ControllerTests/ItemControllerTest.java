@@ -31,7 +31,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void testGetItems() throws Exception {
+    public void get_items() throws Exception {
 
         Item item=new Item();
         item.setId(1l);
@@ -61,7 +61,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void testGetItemById() {
+    public void get_items_by_id() {
         Item item=new Item();
         item.setId(1l);
         item.setName("Apple");
