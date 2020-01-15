@@ -4,12 +4,13 @@ import java.lang.reflect.Field;
 
 public class TestUtils {
 
-    public static void injectObject(Object target,String fieldname,Object toInject){
+    public static void injectObject(Object target,String fieldName,
+                                    Object toInject){
 
         boolean wasPrivate=false;
 
         try {
-            Field field=target.getClass().getDeclaredField(fieldname);
+            Field field=target.getClass().getDeclaredField(fieldName);
 
             if(!field.isAccessible()){
 

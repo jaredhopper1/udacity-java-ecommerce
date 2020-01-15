@@ -31,14 +31,14 @@ public class UserControllerTest {
     @Before
     public void setUp(){
         userController = new UserController();
-        TestUtils.injectObject(userController,"userRepository",userRepo);
-        TestUtils.injectObject(userController,"cartRepository",cartRepo);
-        TestUtils.injectObject(userController,"bCryptPasswordEncoder",encoder);
+        TestUtils.injectObject(userController,"userRepository", userRepo);
+        TestUtils.injectObject(userController,"cartRepository", cartRepo);
+        TestUtils.injectObject(userController,"bCryptPasswordEncoder", encoder);
 
     }
 
     @Test
-    public void create_user_Happy_path() throws Exception{
+    public void create_user_happy_path() throws Exception{
 
         when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
         //the above line is called stubbing, which replaces the code inside when with the value in thenReturn
@@ -48,7 +48,8 @@ public class UserControllerTest {
         createUserRequest.setPassword("testPassword");
         createUserRequest.setConfirmPassword("testPassword");
 
-        final ResponseEntity<User> response=userController.createUser(createUserRequest);
+        final ResponseEntity<User> response =
+                userController.createUser(createUserRequest);
 
         assertNotNull(response);
         assertEquals(200,response.getStatusCodeValue());
@@ -63,9 +64,9 @@ public class UserControllerTest {
 
     @Test
     public void createUser_Invalid_password(){
-        when(encoder.encode("testPassword")).thenReturn("thisIshashed");
+        when(encoder.encode("testPassword")).thenReturn("incorrectPassword");
         CreateUserRequest createUserRequest= new CreateUserRequest();
-        createUserRequest.setUsername("test");
+        createUserRequest.setUsername("testUser");
         createUserRequest.setPassword("testPassword");
         createUserRequest.setConfirmPassword("testPassword");
 
@@ -75,14 +76,14 @@ public class UserControllerTest {
         assertEquals(200, response.getStatusCode().value());
     }
     @Test
-    public void create_user_mismatch_password()
+    public void create_user_incorrect_password()
     {
         when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
 
         CreateUserRequest req = new CreateUserRequest();
         req.setUsername("test");
         req.setPassword("testPassword");
-        req.setConfirmPassword("testpassword");
+        req.setConfirmPassword("incorrectPassword");
 
         final ResponseEntity<User> response = userController.createUser(req);
 
@@ -116,26 +117,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void findByUsername_Invalid(){
-        when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
-        CreateUserRequest createUserRequest= new CreateUserRequest();
-        createUserRequest.setUsername("useruser");
-        createUserRequest.setPassword("testPassword");
-        createUserRequest.setConfirmPassword("testPassword");
-        userController.createUser(createUserRequest);
-        User user= new User();
-        user.setUsername(createUserRequest.getUsername());
-        user.setPassword("thisIsHashed");
-
-        doReturn(user).when(userRepo).findByUsername(createUserRequest.getUsername());
-        final ResponseEntity<User> response= userController.findByUserName(user.getUsername()+"abc");
-
-        assertEquals(404,response.getStatusCode().value());
-
-    }
-
-    @Test
-    public void TestFindbyId(){
+    public void find_by_user_id(){
         when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
         CreateUserRequest createUserRequest= new CreateUserRequest();
         createUserRequest.setUsername("useruser");
@@ -153,6 +135,25 @@ public class UserControllerTest {
         assertEquals(200,response.getStatusCode().value());
         User responseBody= response.getBody();
         assertEquals(5l, responseBody.getId());
+    }
+
+    @Test
+    public void find_by_username_invalid(){
+        when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
+        CreateUserRequest createUserRequest= new CreateUserRequest();
+        createUserRequest.setUsername("testUser");
+        createUserRequest.setPassword("testPassword");
+        createUserRequest.setConfirmPassword("testPassword");
+        userController.createUser(createUserRequest);
+        User user= new User();
+        user.setUsername(createUserRequest.getUsername());
+        user.setPassword("thisIsHashed");
+
+        doReturn(user).when(userRepo).findByUsername(createUserRequest.getUsername());
+        final ResponseEntity<User> response= userController.findByUserName(user.getUsername()+"abc");
+
+        assertEquals(404,response.getStatusCode().value());
+
     }
 
 }

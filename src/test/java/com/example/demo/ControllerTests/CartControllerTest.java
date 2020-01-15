@@ -39,18 +39,18 @@ public class CartControllerTest {
     }
 
     @Test
-    public void TestAddCart(){
+    public void modify_cart_request(){
         Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
         Item item2=new Item();
         item2.setId(2l);
-        item2.setName("MacBook");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
         List<Item> listOfItems= new ArrayList<>();
         listOfItems.add(item);
@@ -59,11 +59,11 @@ public class CartControllerTest {
         Cart cart= new Cart();
         cart.setId(1l);
         cart.setItems(listOfItems);
-        cart.setTotal(BigDecimal.valueOf(11230.03));
+        cart.setTotal(BigDecimal.valueOf(1.39));
 
         User user= new User();
-        user.setUsername("abc");
-        user.setPassword("abcdefg");
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
         user.setCart(cart);
 
         doReturn(user).when(userRepo).findByUsername(user.getUsername());
@@ -84,18 +84,18 @@ public class CartControllerTest {
 
 
     @Test
-    public void TestRemoveCart(){
+    public void remove_from_cart(){
         Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
         Item item2=new Item();
         item2.setId(2l);
-        item2.setName("MacBook");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
         List<Item> listOfItems= new ArrayList<>();
         listOfItems.add(item);
@@ -104,11 +104,11 @@ public class CartControllerTest {
         Cart cart= new Cart();
         cart.setId(1l);
         cart.setItems(listOfItems);
-        cart.setTotal(BigDecimal.valueOf(11230.03));
+        cart.setTotal(BigDecimal.valueOf(1.39));
 
         User user= new User();
-        user.setUsername("abc");
-        user.setPassword("abcdefg");
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
         user.setCart(cart);
 
 
@@ -135,18 +135,18 @@ public class CartControllerTest {
 
 
     @Test
-    public void TestAddCartInvalidUser(){
+    public void add_to_cart_with_invalid_user(){
         Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
         Item item2=new Item();
         item2.setId(2l);
-        item2.setName("MacBook");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
         List<Item> listOfItems= new ArrayList<>();
         listOfItems.add(item);
@@ -155,14 +155,14 @@ public class CartControllerTest {
         Cart cart= new Cart();
         cart.setId(1l);
         cart.setItems(listOfItems);
-        cart.setTotal(BigDecimal.valueOf(11230.03));
+        cart.setTotal(BigDecimal.valueOf(1.39));
 
         User user= new User();
-        user.setUsername("abc");
-        user.setPassword("abcdefg");
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
         user.setCart(cart);
 
-        doReturn(user).when(userRepo).findByUsername("xyz");
+        doReturn(user).when(userRepo).findByUsername("wrongUser");
         doReturn(Optional.of(item2)).when(itemRepo).findById(2l);
 
         ModifyCartRequest modifyCartRequest=new ModifyCartRequest();

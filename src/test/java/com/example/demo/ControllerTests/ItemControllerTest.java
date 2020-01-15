@@ -33,20 +33,19 @@ public class ItemControllerTest {
     @Test
     public void testGetItems() throws Exception {
 
-        Item item = new Item();
+        Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
-        Item item2 = new Item();
+        Item item2=new Item();
         item2.setId(2l);
-        item2.setName("Surface");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
-
-        List<Item> listOfItems = new ArrayList<>();
+        List<Item> listOfItems= new ArrayList<>();
         listOfItems.add(item);
         listOfItems.add(item2);
 
@@ -63,17 +62,17 @@ public class ItemControllerTest {
 
     @Test
     public void testGetItemById() {
-        Item item = new Item();
+        Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
-        Item item2 = new Item();
+        Item item2=new Item();
         item2.setId(2l);
-        item2.setName("Surface");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
         doReturn(Optional.of(item)).when(itemRepo).findById(item.getId());
 
@@ -82,7 +81,7 @@ public class ItemControllerTest {
 
         assertNotNull(response);
         assertEquals(200, response.getStatusCode().value());
-        Assert.assertEquals("MacBook", response.getBody().getName());
+        Assert.assertEquals("Apple", response.getBody().getName());
     }
 
 }

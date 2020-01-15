@@ -25,8 +25,8 @@ import static org.mockito.Mockito.mock;
 public class OrderControllerTest {
     private OrderController orderController;
 
-    private UserRepository userRepo=mock(UserRepository.class);
-    private OrderRepository orderRepo=mock(OrderRepository.class);
+    private UserRepository userRepo = mock(UserRepository.class);
+    private OrderRepository orderRepo = mock(OrderRepository.class);
 
     @Before
     public void setUp() throws  Exception{
@@ -36,18 +36,18 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void TestSubmitOrder() throws Exception{
+    public void submit_order() throws Exception{
         Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
         Item item2=new Item();
         item2.setId(2l);
-        item2.setName("MacBook");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
         List<Item> listOfItems= new ArrayList<>();
         listOfItems.add(item);
@@ -56,11 +56,11 @@ public class OrderControllerTest {
         Cart cart= new Cart();
         cart.setId(1l);
         cart.setItems(listOfItems);
-        cart.setTotal(BigDecimal.valueOf(11230.03));
+        cart.setTotal(BigDecimal.valueOf(1.39));
 
         User user= new User();
-        user.setUsername("abc");
-        user.setPassword("abcdefg");
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
         user.setCart(cart);
 
         doReturn(user).when(userRepo).findByUsername(user.getUsername());
@@ -74,23 +74,23 @@ public class OrderControllerTest {
 
         UserOrder responseBody= response.getBody();
         assertEquals(2,responseBody.getItems().size());
-        assertEquals(BigDecimal.valueOf(11230.03), responseBody.getTotal());
+        assertEquals(BigDecimal.valueOf(1.39), responseBody.getTotal());
     }
 
 
     @Test
-    public void TestGetOrdersForUser(){
+    public void get_orders_for_users(){
         Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
         Item item2=new Item();
         item2.setId(2l);
-        item2.setName("MacBook");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
         List<Item> listOfItems= new ArrayList<>();
         listOfItems.add(item);
@@ -99,11 +99,11 @@ public class OrderControllerTest {
         Cart cart= new Cart();
         cart.setId(1l);
         cart.setItems(listOfItems);
-        cart.setTotal(BigDecimal.valueOf(11230.03));
+        cart.setTotal(BigDecimal.valueOf(1.39));
 
         User user= new User();
-        user.setUsername("abc");
-        user.setPassword("abcdefg");
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
         user.setCart(cart);
 
         doReturn(user).when(userRepo).findByUsername(user.getUsername());
@@ -126,18 +126,18 @@ public class OrderControllerTest {
 
 
     @Test
-    public void TestGetOrdersForInvalidUser(){
+    public void get_orders_for_wrong_user(){
         Item item=new Item();
         item.setId(1l);
-        item.setName("MacBook");
-        item.setDescription("13 Gray");
-        item.setPrice(BigDecimal.valueOf(1200.13));
+        item.setName("Apple");
+        item.setDescription("Envy Apple");
+        item.setPrice(BigDecimal.valueOf(1.39));
 
         Item item2=new Item();
         item2.setId(2l);
-        item2.setName("MacBook");
-        item2.setDescription("13 Black");
-        item2.setPrice(BigDecimal.valueOf(1110.03));
+        item2.setName("Banana");
+        item2.setDescription("Cavendish Banana");
+        item2.setPrice(BigDecimal.valueOf(1.25));
 
         List<Item> listOfItems= new ArrayList<>();
         listOfItems.add(item);
@@ -146,14 +146,14 @@ public class OrderControllerTest {
         Cart cart= new Cart();
         cart.setId(1l);
         cart.setItems(listOfItems);
-        cart.setTotal(BigDecimal.valueOf(11230.03));
+        cart.setTotal(BigDecimal.valueOf(1.39));
 
         User user= new User();
-        user.setUsername("abc");
-        user.setPassword("abcdefg");
+        user.setUsername("testUser");
+        user.setPassword("testPassword");
         user.setCart(cart);
 
-        doReturn(user).when(userRepo).findByUsername("xyz");
+        doReturn(user).when(userRepo).findByUsername("invalidUser");
         UserOrder order = UserOrder.createFromCart(user.getCart());
         List<UserOrder> list= new ArrayList<>();
         list.add(order);
