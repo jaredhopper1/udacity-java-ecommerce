@@ -32,7 +32,7 @@ public class OrderController {
 	
 	@PostMapping("/submit/{username}")
 	public ResponseEntity<UserOrder> submit(@PathVariable String username) {
-		log.info("Order submitByUsername method invoked by: {}", username);
+		log.info("orderSubmitByUsername method invoked by: {}", username);
 		User user = userRepository.findByUsername(username);
 		if(user == null) {
 			log.info("Success, Order submitted successfully by {}", username);
@@ -45,7 +45,7 @@ public class OrderController {
 	
 	@GetMapping("/history/{username}")
 	public ResponseEntity<List<UserOrder>> getOrdersForUser(@PathVariable String username) {
-		log.info("Get Order History By Username method invoked by: {}",
+		log.info("getOrderHistoryByUsername method invoked by: {}",
 				username);
 		User user = userRepository.findByUsername(username);
 		if(user == null) {

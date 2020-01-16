@@ -48,6 +48,7 @@ public class UserController {
 		log.info("Find userByUsername method invoked by: {}", username);
 		User user = userRepository.findByUsername(username);
 		return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
+		
 	}
 	
 	@PostMapping("/create")

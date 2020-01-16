@@ -39,7 +39,7 @@ public class CartController {
 	
 	@PostMapping("/addToCart")
 	public ResponseEntity<Cart> addToCart(@RequestBody ModifyCartRequest request) {
-		log.info("Invoked, AddToCart method.");
+		log.info("AddToCart method invoked.");
 		User user = userRepository.findByUsername(request.getUsername());
 		if(user == null) {
 			log.error("Attempt failed. Unable to find username: {}",
